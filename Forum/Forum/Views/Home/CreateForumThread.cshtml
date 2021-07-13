@@ -1,0 +1,38 @@
+﻿@model Forum.Models.CreateRootThreadM
+
+@{
+    ViewData["Title"] = "Nowy temat";
+}
+
+<h1>Nowy temat</h1>
+
+<h4>Wpisz nazwę tematu i swoje zapytanie</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateForumThread">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ThreadName" class="control-label">Temat</label>
+                <input asp-for="ThreadName" class="form-control" required/>          
+                <span asp-validation-for="ThreadName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label">Zapytanie</label>
+                <input asp-for="Message" class="form-control" required/>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Utworz" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Wróc</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

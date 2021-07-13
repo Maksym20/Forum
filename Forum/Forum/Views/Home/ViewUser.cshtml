@@ -1,0 +1,43 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+
+@{
+    ViewData["Title"] = "ViewForumThread";
+}
+
+<div>
+    <h4>@Html.DisplayFor(model => model.UserName)</h4>
+    <hr />
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>
+                        Name
+                    </td>
+                    <td>                  @*strona pokazuje użytkownika*@
+                        Email
+                    </td>
+                    <td>
+                        Phone
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+               
+                    <tr>
+                        <td>
+                            @Model.UserName
+                        </td>
+                        <td>
+                            @Model.Email
+                        </td>
+                        <td>
+                            @Model.PhoneNumber
+                        </td>
+                    </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+

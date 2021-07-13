@@ -1,0 +1,57 @@
+﻿@model Forum.ViewModels.ThreadVM
+
+@{
+    ViewData["Title"] = "ViewForumThread";
+}
+
+    <h1> @Html.DisplayFor(model => model.ThreadName)</h1>
+
+<div>
+    <h4>@Html.DisplayFor(model => model.AuthorName) @Html.DisplayFor(model => model.CreatedAt)</h4>
+    <hr />
+    <div class="row">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>
+                        Author
+                    </td>
+                    <td>                         @*strona pokazuje wątek*@
+                        Text
+                    </td>
+                    <td>
+                        Created at
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var thr in Model.Messages)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("ViewUser", "Home", new { userId = thr.UserId})"> @thr.UserName</a>
+                        </td>
+                        <td>
+                            @thr.Text
+                            @if (thr.edit == true)
+                            {
+                                <text>
+                                    <a href="@Url.Action("CreateorUpdateForumMessage", "Home", new { threadId = Model.Id , messageId = thr.Id})" type="submit">edit</a>
+                                </text>
+                            }
+                        </td>
+                        <td>
+                            @thr.CreatedAt
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+        <hr />
+        <div class="col-md-4">
+            @*przycisk "napisz nową wiadomość"*@
+            <a href="@Url.Action("CreateorUpdateForumMessage", "Home", new {threadId = Model.Id})" type="submit" class="btn btn-primary">New message</a>
+        </div>
+</div>
+

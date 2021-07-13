@@ -1,0 +1,68 @@
+﻿@model Forum.Models.RootModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+    <div class="text-center">
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <h1 class="display-4">Welcome to FORUM</h1>
+            <br />
+            <br />
+            @if (Model.Threads.Count == 0)
+            {
+                <p>Forum jest pusty</p>
+            }
+            else
+            {
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>
+                            Author
+                        </td>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Created at
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var thr in Model.Threads)
+                    {
+                        <tr>
+                            <td>
+                                @*link na użytkownika*@
+                                <a href="@Url.Action("ViewUser", "Home", new { userId = thr.AuthorId})">  @thr.AuthorName</a>
+                               
+                            </td>
+                            <td>
+                                @*link na wątek*@
+                                <a href="@Url.Action("ViewForumThread", "Home", new { threadId = thr.Id })"> @thr.ThreadName</a>
+                            </td>
+                            <td>
+                                @*data stworzenia*@
+                                @thr.CreatedAt
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            <hr />
+            //przycisk dla tworzenia nowego  wątku
+            <a asp-action="CreateForumThread"  class="btn btn-info">Create new</a>
+        }
+        else
+        {
+            <h1 class="display-4">Welcome</h1> @*register or login *@
+            <p>Please <a asp-area="Identity" asp-page="/Account/Register">Register</a> or  <a asp-area="Identity" asp-page="/Account/Login">Login</a>.</p>
+        }
+    </div>
